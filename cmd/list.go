@@ -8,22 +8,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func listTasks() {
-	tasks, err := utilities.Load()
-	if err != nil {
-		panic(err)
-	}
-
-	utilities.PrintTable(tasks)
-}
-
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "Muestra la lista de tareas pendientes",
 	Long:  `Muestra la lista de tareas pendientes en forma de tabla.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		listTasks()
+		tasks, err := utilities.Load()
+		if err != nil {
+			panic(err)
+		}
+
+		utilities.PrintTable(tasks)
 	},
 }
 
