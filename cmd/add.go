@@ -30,7 +30,7 @@ func addTask(name string) {
 
 // addCmd represents the add command
 var addCmd = &cobra.Command{
-	Use:   "add",
+	Use:   "todo",
 	Short: "Añade una tarea a la lista",
 	Long:  `Añade una tarea nueva a la lista de tareas pendientes.`,
 	Run: func(cmd *cobra.Command, args []string) {
