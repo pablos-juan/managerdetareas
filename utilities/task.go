@@ -3,7 +3,6 @@ package utilities
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
 )
 
@@ -14,18 +13,11 @@ type Task struct {
 	Done bool   `json:"done"`
 }
 
-func Save(nt Task) error {
-	tasks, err := load()
-	if err != nil {
-		return err
-	}
-
-	tasks = append(tasks, nt)
+func Save(tasks []Task) error {
 	data, err := json.MarshalIndent(tasks, "", "  ")
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(data))
 
 	err = os.WriteFile(FILE_NAME, data, 0644)
 	if err != nil {
@@ -35,7 +27,7 @@ func Save(nt Task) error {
 	return nil
 }
 
-func load() ([]Task, error) {
+func Load() ([]Task, error) {
 	tasks := []Task{}
 
 	data, err := os.ReadFile("mann.json")

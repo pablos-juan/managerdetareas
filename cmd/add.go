@@ -16,7 +16,13 @@ func addTask(name string) {
 		Done: false,
 	}
 
-	err := utilities.Save(nt)
+	tasks, err := utilities.Load()
+	if err != nil {
+		panic(err)
+	}
+	tasks = append(tasks, nt)
+
+	err = utilities.Save(tasks)
 	if err != nil {
 		panic(err)
 	}
