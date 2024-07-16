@@ -36,6 +36,7 @@ var addCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		nombre := strings.Join(args, " ")
 		addTask(nombre)
+		utilities.PrintTasks()
 	},
 }
 

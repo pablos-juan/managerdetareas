@@ -10,7 +10,41 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func deleteTask(i int) {
+// deleteCmd represents the delete command
+var deleteCmd = &cobra.Command{
+	Use:   "delete",
+	Short: "Borra una tarea de la lista",
+	Long:  `Borra una tarea de la lista de tareas pendientes.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if all, _ := cmd.Flags().GetBool("all"); all {
+			deleteAllTasks()
+			return
+		}
+
+		deleteTaskIn(args)
+		utilities.PrintTasks()
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(deleteCmd)
+
+	deleteCmd.Flags().BoolP("all", "a", false, "Borra todas las tareas")
+}
+
+func deleteAllTasks() {
+	err := utilities.Save([]utilities.Task{})
+	if err != nil {
+		panic(err)
+	}
+}
+
+func deleteTaskIn(args []string) {
+	i := getIndex(args)
+	if i < 0 {
+		return
+	}
+
 	tasks, err := utilities.Load()
 	if err != nil {
 		panic(err)
@@ -28,36 +62,17 @@ func deleteTask(i int) {
 	}
 }
 
-// deleteCmd represents the delete command
-var deleteCmd = &cobra.Command{
-	Use:   "delete",
-	Short: "Borra una tarea de la lista",
-	Long:  `Borra una tarea de la lista de tareas pendientes.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 1 {
-			i, err := strconv.Atoi(args[0])
-			if err != nil {
-				utilities.ErrorMessage("Error. '%s' no es un número!", args[0])
-				return
-			}
-
-			deleteTask(i)
-			return
+func getIndex(args []string) int {
+	if len(args) == 1 {
+		i, err := strconv.Atoi(args[0])
+		if err != nil {
+			utilities.ErrorMessage("Error. '%s' no es un número!", args[0])
+			return -1
 		}
-		utilities.ErrorMessage("Error. Necesita un número entero como argumento!")
-	},
-}
 
-func init() {
-	rootCmd.AddCommand(deleteCmd)
+		return i
+	}
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// deleteCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	utilities.ErrorMessage("Error. Necesita un número entero como argumento!")
+	return -1
 }
