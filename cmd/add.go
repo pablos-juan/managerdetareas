@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <pabloccsanchez@gmail.com>
+Copyright © 2024 github.com/pablos-juan/managerdetareas
 */
 package cmd
 
