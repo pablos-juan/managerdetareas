@@ -10,9 +10,9 @@ import (
 
 // deleteCmd represents the delete command
 var removeCmd = &cobra.Command{
-	Use:   "delete",
-	Short: "Borra una tarea de la lista",
-	Long:  `Borra una tarea de la lista de tareas pendientes.`,
+	Use:   "rm",
+	Short: "Elimina una tarea de la lista",
+	Long:  `Elimina una tarea de la lista de tareas pendientes.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if all, _ := cmd.Flags().GetBool("all"); all {
 			deleteAllTasks()
@@ -37,6 +37,10 @@ func deleteAllTasks() {
 	}
 }
 
+// deleteTaskIn elimina una tarea de la lista de tareas según el índice proporcionado.
+// Recibe un slice de strings que contiene los argumentos.
+// Si el índice es inválido o está fuera del rango de la lista de tareas, no se realiza ninguna acción.
+// Si ocurre algún error al cargar o guardar las tareas, se produce un error en tiempo de ejecución.
 func deleteTaskIn(args []string) {
 	i := utilities.GetIndex(args)
 	if i < 0 {
@@ -54,6 +58,7 @@ func deleteTaskIn(args []string) {
 	}
 
 	tasks = append(tasks[:i-1], tasks[i:]...)
+
 	err = utilities.Save(tasks)
 	if err != nil {
 		panic(err)
