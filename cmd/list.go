@@ -14,12 +14,7 @@ var listCmd = &cobra.Command{
 	Short: "Muestra la lista de tareas pendientes",
 	Long:  `Muestra la lista de tareas pendientes en forma de tabla.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tasks, err := utilities.Load()
-		if err != nil {
-			panic(err)
-		}
-
-		utilities.PrintTable(tasks)
+		utilities.PrintTasks()
 	},
 }
 
