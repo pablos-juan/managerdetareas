@@ -13,6 +13,9 @@ type Task struct {
 	Done bool   `json:"done"`
 }
 
+// Save guarda las tareas en un archivo JSON.
+// Recibe un slice de tareas y las guarda en un archivo con formato JSON.
+// Devuelve un error si ocurre algún problema durante el proceso de guardado.
 func Save(tasks []Task) error {
 	data, err := json.MarshalIndent(tasks, "", "  ")
 	if err != nil {
@@ -27,6 +30,9 @@ func Save(tasks []Task) error {
 	return nil
 }
 
+// Load lee los datos de las tareas desde un archivo JSON y devuelve un slice de tareas.
+// Si el archivo no existe, se devuelve un slice vacío.
+// Si hay un error al leer o deserializar los datos, se devuelve el error.
 func Load() ([]Task, error) {
 	tasks := []Task{}
 

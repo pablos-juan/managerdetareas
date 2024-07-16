@@ -10,7 +10,6 @@ func PrintTable(tasks []Task) {
 	table := simpletable.New()
 
 	table.Header = &simpletable.Header{
-
 		Cells: []*simpletable.Cell{
 			{Align: simpletable.AlignCenter, Text: "ID"},
 			{Align: simpletable.AlignCenter, Text: "Tarea"},
