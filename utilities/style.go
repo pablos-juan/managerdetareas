@@ -10,6 +10,11 @@ const (
 	ColorGray    = "\x1b[90m"
 )
 
+func ErrorMessage(format string, a ...any) {
+	formattedMessage := fmt.Sprintf(format, a...)
+	fmt.Println(Red(formattedMessage))
+}
+
 func Red(s string) string {
 	return fmt.Sprintf("%s%s%s", ColorRed, s, ColorDefault)
 }
