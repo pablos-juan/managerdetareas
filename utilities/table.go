@@ -37,10 +37,15 @@ func PrintTable(tasks []Task) {
 		table.Body.Cells = append(table.Body.Cells, r)
 	}
 
-	tx := fmt.Sprintf("Tiene %d tareas por terminar", IncompleteTasks(tasks))
+	n := IncompleteTasks(tasks)
+	tx := Green("Nada por hacer :)")
+	if n > 0 {
+		tx = fmt.Sprintf("Tareas por terminar: %d", n)
+		tx = Red(tx)
+	}
 	table.Footer = &simpletable.Footer{
 		Cells: []*simpletable.Cell{
-			{Align: simpletable.AlignCenter, Span: 3, Text: Red(tx)},
+			{Align: simpletable.AlignCenter, Span: 3, Text: tx},
 		},
 	}
 
