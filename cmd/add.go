@@ -10,6 +10,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// addCmd represents the add command
+var addCmd = &cobra.Command{
+	Use:   "todo",
+	Short: "Añade una tarea a la lista",
+	Long:  `Añade una tarea nueva a la lista de tareas pendientes.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		nombre := strings.Join(args, " ")
+		addTask(nombre)
+		utilities.PrintTasks()
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(addCmd)
+}
+
+// addTask es una función que agrega una nueva tarea a la lista de tareas.
+// Recibe el nombre de la tarea como parámetro y crea una nueva instancia de la estructura Task con el nombre proporcionado.
+// Luego carga la lista de tareas existente, agrega la nueva tarea a la lista y guarda la lista actualizada.
 func addTask(name string) {
 	nt := utilities.Task{
 		Name: name,
@@ -26,30 +45,4 @@ func addTask(name string) {
 	if err != nil {
 		panic(err)
 	}
-}
-
-// addCmd represents the add command
-var addCmd = &cobra.Command{
-	Use:   "todo",
-	Short: "Añade una tarea a la lista",
-	Long:  `Añade una tarea nueva a la lista de tareas pendientes.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		nombre := strings.Join(args, " ")
-		addTask(nombre)
-		utilities.PrintTasks()
-	},
-}
-
-func init() {
-	rootCmd.AddCommand(addCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// addCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// addCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

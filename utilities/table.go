@@ -17,14 +17,11 @@ func PrintTable(tasks []Task) {
 		},
 	}
 
-	var tn string
-	var ts string
 	for i, v := range tasks {
-		tn = Blue(v.Name)
-		ts = fmt.Sprintf("%t", v.Done)
-		ts = Blue(ts)
+		tn := v.Name
+		ts := fmt.Sprintf("%t", v.Done)
 		if v.Done {
-			tn = Green(ts)
+			tn = Green(tn)
 			ts = Green(ts)
 		}
 

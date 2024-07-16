@@ -4,8 +4,6 @@ Copyright © 2024 github.com/pablos-juan/managerdetareas
 package cmd
 
 import (
-	"strconv"
-
 	"github.com/pablos-juan/managerdetareas/utilities"
 	"github.com/spf13/cobra"
 )
@@ -40,7 +38,7 @@ func deleteAllTasks() {
 }
 
 func deleteTaskIn(args []string) {
-	i := getIndex(args)
+	i := utilities.GetIndex(args)
 	if i < 0 {
 		return
 	}
@@ -60,19 +58,4 @@ func deleteTaskIn(args []string) {
 	if err != nil {
 		panic(err)
 	}
-}
-
-func getIndex(args []string) int {
-	if len(args) == 1 {
-		i, err := strconv.Atoi(args[0])
-		if err != nil {
-			utilities.ErrorMessage("Error. '%s' no es un número!", args[0])
-			return -1
-		}
-
-		return i
-	}
-
-	utilities.ErrorMessage("Error. Necesita un número entero como argumento!")
-	return -1
 }
