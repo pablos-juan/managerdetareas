@@ -4,9 +4,10 @@ import (
 	"fmt"
 
 	"github.com/alexeyco/simpletable"
+	"github.com/pablos-juan/managerdetareas/internal/task"
 )
 
-func PrintTasks(tasks []Task) {
+func PrintTasks(tasks []task.Task) {
 	table := simpletable.New()
 
 	table.Header = &simpletable.Header{
@@ -50,7 +51,7 @@ func PrintTasks(tasks []Task) {
 	fmt.Println(table.String())
 }
 
-func IncompleteTasks(tasks []Task) int {
+func IncompleteTasks(tasks []task.Task) int {
 	n := 0
 	for _, v := range tasks {
 		if !v.Done {

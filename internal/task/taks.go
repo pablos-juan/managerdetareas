@@ -52,14 +52,14 @@ func Load() ([]Task, error) {
 	return tasks, nil
 }
 
-func PrintTasks() {
+/* func PrintTasks() {
 	tasks, err := Load()
 	if err != nil {
 		panic(err)
 	}
 
-	PrintTable(tasks)
-}
+	utils.PrintTasks(tasks)
+} */
 
 // Filter filtra una lista de tareas utilizando una función de predicado.
 // Recibe un slice de tareas y una función de predicado que toma una tarea y devuelve un valor booleano.
